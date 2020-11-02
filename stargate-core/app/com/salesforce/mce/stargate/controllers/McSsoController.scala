@@ -64,7 +64,7 @@ class McSsoController @Inject() (
     val result = Ok.withCookies(Cookie(
       name = sessionConfig.cookieName,
       value = "",
-      maxAge = Some(0),   // ensure cookie expires immediately, if not discarded
+      maxAge = Some(0), // ensure cookie expires immediately, if not discarded
       secure = sessionConfig.secure,
       sameSite = sessionConfig.sameSite
     ))
@@ -145,7 +145,7 @@ class McSsoController @Inject() (
               Set("id", "userId", "mid", "eid")
             )
             log(true, request, userInfoForLogging)
-            Redirect(redirectUrlPostCallback).withSession(newSessionPostCallback)
+            Redirect(redirectUrlPostCallback, request.queryString).withSession(newSessionPostCallback)
           }
         }.getOrElse(Future.successful(InternalServerError(Json.obj("error" -> "Unable to create session"))))
       }

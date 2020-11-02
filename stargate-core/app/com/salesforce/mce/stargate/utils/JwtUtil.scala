@@ -66,7 +66,7 @@ class JwtUtilImpl @Inject() (config: Configuration) extends JwtUtil {
        |    "application": {
        |      "id": "appidxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
        |      "package": "apppacka-gexx-xxxx-xxxx-xxxxxxxxxxxx.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-       |      "redirectUrl": "https://cool-mc-app.mce.salesforce.com/",
+       |      "redirectUrl": "https://cool-mc-app.mce.salesforce.com",
        |      "features": {},
        |      "userPermissions": []
        |    }

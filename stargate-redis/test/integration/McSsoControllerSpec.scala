@@ -58,7 +58,7 @@ class McSsoControllerSpec extends PlaySpec with GuiceOneAppPerTest with BeforeAn
     "redirect to redirectUrl in JWT" in {
       val jwt = Jwt.encode(jwtPayload, secretKey, JwtAlgorithm.HS256)
       val response = route(app, request.withFormUrlEncodedBody(("jwt", jwt))).get
-      redirectLocation(response).get mustBe "https://cool-mc-app.mce.salesforce.com/"
+      redirectLocation(response).get mustBe "https://cool-mc-app.mce.salesforce.com"
     }
 
     "create session data with JWT" in {
@@ -157,7 +157,18 @@ class McSsoControllerSpec extends PlaySpec with GuiceOneAppPerTest with BeforeAn
 
       redirectLocation(response).get mustBe "https://www.reddit.com/r/corgi/"
     }
+  }
 
+  "sso/mc/login with querystring" should {
+    val request = FakeRequest(POST, "/sso/mc/login?param1=somevalue")
+    val secretKey = "changeme"
+    val jwtPayload = new JwtUtilImpl(Configuration(ConfigFactory.load())).mockDecodedJwt
+
+    "provide querystring in redirect url" in {
+      val jwt = Jwt.encode(jwtPayload, secretKey, JwtAlgorithm.HS256)
+      val response = route(app, request.withFormUrlEncodedBody(("jwt", jwt))).get
+      redirectLocation(response).get mustBe "https://cool-mc-app.mce.salesforce.com?param1=somevalue"
+    }
   }
 
   "sso/mc/logout" should {
